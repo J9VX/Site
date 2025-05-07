@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opus</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+      
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .header {
+            background-color: #000000;
+            padding: 40px 0;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin: 0;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .header p {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #aaa;
+        }
+
+        .banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://envs.sh/kNW.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner h2 {
+            font-size: 48px;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .content {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: auto;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: blue;
+            text-shadow: 0 0 8px;
+        }
+
+        .content ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .content ul li {
+            padding-left: 40px;
+            margin: 15px 0;
+            font-size: 20px;
+            color: #ddd;
+        }
+
+        .content ul ul li {
+            font-size: 18px;
+            padding-left: 30px;
+            color: #bbb;
+        }
+
+        footer {
+            background: radial-gradient(ellipse at center, #0a0a20 0%, #000000 70%);
+            color: #ccc;
+            text-align: center;
+            padding: 100px 0 40px;
+            font-size: 14px;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .cosmic-clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .cosmic-cloud {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+
+        .cosmic-center {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(255,123,0,0.2) 0%, rgba(255,123,0,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .cosmic-ring {
+            position: absolute;
+            border: 1px solid rgba(255, 187, 0, 0.2);
+            border-radius: 50%;
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        footer .footer-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        footer a {
+            color: #ffbb00;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 187, 0, 0.7);
+        }
+
+        footer p {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        .cosmic-particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: sparkle 4s infinite ease-in-out;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stars-container"></div>
+
+    <div class="header">
+        <h1>Chanalogs Opus v2.0 T-1</h1>
+        <p>Next-Gen Hybrid Audio Experience</p>
+    </div>
+
+    <div class="banner">
+        <h2>Unleashing Premium Audio for You</h2>
+    </div>
+
+    <div class="content">
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Hybrid Audio Engine</strong></li>
+            <li><strong>Premium Audio Quality</strong> 
+                <ul>
+                    <li>Dolby Atmos support (for supported tracks)</li>
+                    <li>320kbps streaming by default</li>
+                </ul>
+            </li>
+            <li><strong>Lightning Fast</strong>
+                <ul>
+                    <li>&lt;500ms response time for commands</li>
+                    <li>AI-accelerated search</li>
+                </ul>
+            </li>
+            <li><strong>Smart AI Integration</strong>
+                <ul>
+                    <li>AI-powered search for hard-to-find tracks</li>
+                    <li>YouTube fallback when songs aren't in primary databases</li>
+                </ul>
+            </li>
+            <li><strong>Stable & Reliable</strong>
+                <ul>
+                    <li>No more cookie/login issues</li>
+                    <li>99.9% uptime guarantee</li>
+                </ul>
+            </li>
+            <li><strong>New Audio Sources Added</strong>
+                <ul>
+                    <li>JioSaavn (Official & unofficial [Modified version]) for better song availability and experience</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <footer>
+        
+        <div class="footer-content">
+            <p>&copy; 2025 Chanalogs Music Bot | All Rights Reserved</p>
+            <p><a href="https://t.me/STORM_TECHH" target="_blank">Join Us on Telegram</a></p>
+        </div>
+    </footer>
+
+    <script>
+      
+        document.addEventListener('DOMContentLoaded', function() {
+            const starsContainer = document.getElementById('stars-container');
+            const cosmicClouds = document.getElementById('cosmic-clouds');
+            const starCount = 200;
+            const cloudCount = 8;
+            
+          
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
+                
+                starsContainer.appendChild(star);
+            }
+            
+            
+            for (let i = 0; i < cloudCount; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'cosmic-cloud';
+                
+                const size = Math.random() * 300 + 100;
+                cloud.style.width = `${size}px`;
+                cloud.style.height = `${size}px`;
+                
+
+                const colors = [
+                    'rgba(255, 123, 0, 0.1)',
+                    'rgba(255, 187, 0, 0.1)',
+                    'rgba(100, 200, 255, 0.1)',
+                    'rgba(200, 100, 255, 0.1)'
+                ];
+                cloud.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+              
+                const startX = Math.random() * 20 + 40;
+                const startY = Math.random() * 20 + 40;
+                cloud.style.left = `${startX}%`;
+                cloud.style.top = `${startY}%`;
+                
+
+                cloud.style.setProperty('--tx', `${(Math.random() - 0.5) * 40}%`);
+                cloud.style.setProperty('--ty', `${(Math.random() - 0.5) * 40}%`);
+                
+
+                cloud.style.animationDelay = `${Math.random() * 20}s`;
+                
+                cosmicClouds.appendChild(cloud);
+            }
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'cosmic-particle';
+                
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                particle.style.animationDelay = `${Math.random() * 4}s`;
+                
+                document.querySelector('footer').appendChild(particle);
+            }
+        });
+    </script>
+</body>
+</html>
